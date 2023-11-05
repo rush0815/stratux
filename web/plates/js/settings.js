@@ -352,6 +352,9 @@ function SettingsCtrl($rootScope, $scope, $state, $location, $window, $http) {
 
 
 		$scope.CountryCodeList = countryCodes;
+
+		$scope.Source1090 = settings.Source1090;
+		$scope.Source1090DevArgs = settings.Source1090DevArgs;
 	}
 
 	function getSettings() {
@@ -499,6 +502,49 @@ function SettingsCtrl($rootScope, $scope, $state, $location, $window, $http) {
 			setSettings(angular.toJson(newsettings));
 		}
 	};
+
+	$scope.updateSDRSource = function () {
+		settings["Source1090"] = 0;
+		settings["Source1090DevArgs"] = "";
+		if (($scope.Source1090 !== undefined) && ($scope.Source1090 !== null) && ($scope.Source1090DevArgs !== undefined) && ($scope.Source1090DevArgs !== null)) {
+			settings["Source1090"] = parseInt($scope.Source1090);
+			settings["Source1090DevArgs"] = $scope.Source1090DevArgs;
+			var newsettings = {
+				"Source1090": settings["Source1090"],
+				"Source1090DevArgs": settings["Source1090DevArgs"]
+			};
+			// console.log(angular.toJson(newsettings));
+			$scope.Ui.turnOn("modalSuccessSDRSource");
+			setSettings(angular.toJson(newsettings));
+					
+			setTimeout(function() {
+				getSettings();
+			}, 5000);
+		}
+	};
+
+	/*$scope.updateSDRSource = function () {
+		var newsettings = {
+			"Source1090": parseInt($scope.Source1090),
+			"Source1090DevArgs" :  $scope.Source1090DevArgs
+		};
+
+		//console.log(angular.toJson(newsettings));
+		$scope.Ui.turnOn("modalSuccessSDRSource");
+		setSettings(angular.toJson(newsettings));
+		setTimeout(function() {
+			getSettings();
+		}, 5000);
+	}*/
+
+
+	$scope.SDRSource1090Str = function() {
+		switch(parseInt($scope.Source1090)) {
+			case 0: return "RTL-SDR";
+			case 1: return "SoapySDR";
+		}
+		return parseInt($scope.Source1090).toString();
+	}
 
 	$scope.postShutdown = function () {
 		$window.location.href = "/";

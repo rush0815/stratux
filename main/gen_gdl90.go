@@ -1213,6 +1213,9 @@ type settings struct {
 	GXPilot              string
 
 	PWMDutyMin           int
+
+	Source1090			 int
+	Source1090DevArgs	 string
 }
 
 type status struct {
@@ -1317,6 +1320,9 @@ func defaultSettings() {
 	globalSettings.PWMDutyMin = 0
 
 	globalSettings.OGNI2CTXEnabled = true
+
+	globalSettings.Source1090 = 0
+	globalSettings.Source1090DevArgs = "--fix --net-stratux-port 30006 --net --device-type soapy --device device_id=1 --bandwidth 1800000 --gain-element LNA:30 --gain-element PGA:6"
 }
 
 func readSettings() {

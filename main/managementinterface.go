@@ -340,6 +340,7 @@ func handleSettingsSetRequest(w http.ResponseWriter, r *http.Request) {
 				reconfigureOgnTracker := false
 				reconfigureGXTracker := false
 				reconfigureFancontrol := false
+				//reconfigure1090Source := false
 				for key, val := range msg {
 					// log.Printf("handleSettingsSetRequest:json: testing for key:%s of type %s\n", key, reflect.TypeOf(val))
 					switch key {
@@ -526,7 +527,12 @@ func handleSettingsSetRequest(w http.ResponseWriter, r *http.Request) {
 					case "PWMDutyMin":
 						globalSettings.PWMDutyMin = int(val.(float64))
 						reconfigureFancontrol = true
-
+					case "Source1090":
+						globalSettings.Source1090 = int(val.(float64))
+						//reconfigure1090Source = true
+					case "Source1090DevArgs":
+						globalSettings.Source1090DevArgs = val.(string)
+						//reconfigure1090Source = true
 					default:
 						log.Printf("handleSettingsSetRequest:json: unrecognized key:%s\n", key)
 					}

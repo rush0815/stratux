@@ -447,6 +447,31 @@
                 </div>
             </div>
         </div>
+        <!-- SDR Source settings-->
+        <div class="panel-group col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">SDR Source settings</div>
+                <div class="panel-body">
+                    <form name="SdrSourceSettings">
+                        <div class="form-group reset-flow">
+                            <label class="control-label col-xs-5">1090 Mhz Source</label>
+                            <select id="SourceSelect1090" class="custom-select" ng-model="Source1090" value="Source1090">
+                                <option value="0" ng-selected="Source1090=='0'">RTL-SDR</option>
+                                <option value="1" ng-selected="Source1090=='1'">SoapySDR</option>
+                            </select>
+                        </div>
+                        <div class="form-group reset-flow">
+                            <label class="control-label col-xs-5">1090 Mhz dump1090 arguments</label>
+                            <input class="col-xs-7" type="text" 1090DevArgs-input ng-model="Source1090DevArgs"
+                                placeholder="put devie arguments for ./dump1090 in here" />
+                        </div>
+                        <div class="form-group reset-flow">
+                            <button class="btn btn-primary btn-block" ng-click="updateSDRSource()">Safe changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- End Left Col -->
     <!-- Begin Right Col -->
@@ -736,6 +761,27 @@
                     <div class="modal-footer">
                         <a ui-turn-off="modalCancelWiFi" ng-click="resetSettings()"
                             class="btn btn-default btn-primary">OK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- WiFi Success Modal -->
+    <div class="modal" ui-if="modalSuccessSDRSource" ui-state="modalSuccessSDRSource" id="SDRSourceSuccessModal">
+        <div class="modal-overlay "></div>
+        <div class="vertical-alignment-helper center-block">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" ui-turn-off="modalSuccessSDRSource"></button>
+                        <h4 class="modal-title">Your SDR Source settings successfully changed.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>1090 Mhz Source: <b>{{SDRSource1090Str()}}</b></p>
+                        <p>1090DevArgs: <b>{{Source1090DevArgs}}</b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <a ui-turn-off="modalSuccessSDRSource" class="btn btn-primary btn-default">Close</a>
                     </div>
                 </div>
             </div>
